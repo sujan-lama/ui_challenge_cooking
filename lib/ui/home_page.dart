@@ -120,27 +120,30 @@ class _HomePageState extends State<HomePage>
 
   Widget _buildPlate() {
     return Center(
-      child: Align(
-        alignment: AlignmentDirectional(1.8, 0.0),
-        child: Container(
-          child: GestureDetector(
-            onVerticalDragStart: _onVerticalDragStart,
-            onVerticalDragUpdate: _onVerticalDragUpdate,
-            onVerticalDragEnd: _onVerticalDragEnd,
-            child: Transform.rotate(
-              angle: isClockWise
-                  ? _clockWisePlateRotationAnimation.value
-                  : _antiClockWisePlateRotationAnimation.value,
-              child: Hero(
-                tag: 'food',
-                flightShuttleBuilder: _heroBuilder,
-                child: Material(
-                  color: Colors.transparent,
-                  child: Image.asset(
-                    foodList[currentIndex].foodAssetsPath,
-                    width: 180.0,
-                    height: 250.0,
-                    fit: BoxFit.fitWidth,
+      child: Transform.translate(
+        offset: Offset(80.0, 0.0),
+        child: Align(
+          alignment: Alignment(1.0,-0.2),
+          child: Container(
+            child: GestureDetector(
+              onVerticalDragStart: _onVerticalDragStart,
+              onVerticalDragUpdate: _onVerticalDragUpdate,
+              onVerticalDragEnd: _onVerticalDragEnd,
+              child: Transform.rotate(
+                angle: isClockWise
+                    ? _clockWisePlateRotationAnimation.value
+                    : _antiClockWisePlateRotationAnimation.value,
+                child: Hero(
+                  tag: 'food',
+                  flightShuttleBuilder: _heroBuilder,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Image.asset(
+                      foodList[currentIndex].foodAssetsPath,
+                      width: 180.0,
+                      height: 250.0,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
               ),

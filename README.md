@@ -6,5 +6,4 @@ https://dribbble.com/shots/4830448-Daily-Cooking-Quest-Interactive.
 Note: Exact replication is not done.
 
 Start branch: Where all resources you need to start writing code from start.
-Final branch: Where all the final code is done with working code.
 
