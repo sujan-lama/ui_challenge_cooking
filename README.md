@@ -1,16 +1,10 @@
 # cooking_ui_challenge
 
-A new Flutter application.
+This flutter ui challenge is to replicate ui of dribbble project of Hoang Nguyen.
+https://dribbble.com/shots/4830448-Daily-Cooking-Quest-Interactive.
 
-## Getting Started
+Note: Exact replication is not done.
 
-This project is a starting point for a Flutter application.
+Start branch: Where all resources you need to start writing code from start.
+Final branch: Where all the final code is done with working code.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
