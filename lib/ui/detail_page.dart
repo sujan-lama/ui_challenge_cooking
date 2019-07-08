@@ -1,5 +1,5 @@
+import 'package:cooking_ui_challenge/custom/custom_shape_fab.dart';
 import 'package:cooking_ui_challenge/model/food.dart';
-import 'package:cooking_ui_challenge/ui/clipper/custom_shape_fab.dart';
 import 'package:cooking_ui_challenge/ui/food_attributes.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +22,7 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
     controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));
     offset = Tween<Offset>(end: Offset.zero, begin: Offset(0.0, 1.0))
-        .animate(controller);
+        .animate(CurvedAnimation(parent: controller, curve: Curves.elasticOut));
 
     controller.forward(from: 0.0);
   }
@@ -39,100 +39,92 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
-          body: Stack(
-            fit: StackFit.expand,
-            children: <Widget>[
-              Container(
-                color: Color(0xFFF1F1F3),
-              ),
-              Container(
-                padding: const EdgeInsets.only(left: 20.0),
-                color: Colors.white,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Align(
-                      alignment: AlignmentDirectional.center,
-                      child: Hero(
-                        tag: 'food',
-                        child: Image.asset(
-                          foodList[widget.currentIndex].foodAssetsPath,
-                          fit: BoxFit.scaleDown,
-                          width: 180.0,
-                          height: 250.0,
+          body: Container(
+            color: Color(0xFFF1F1F3),
+            padding: const EdgeInsets.only(left: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Align(
+                  alignment: AlignmentDirectional.center,
+                  child: Hero(
+                    tag: 'food',
+                    child: Image.asset(
+                      foodList[widget.currentIndex].foodAssetsPath,
+                      fit: BoxFit.scaleDown,
+                      width: 180.0,
+                      height: 250.0,
+                    ),
+                  ),
+                ),
+                Hero(
+                  tag: 'title',
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Text(
+                        foodList[widget.currentIndex].foodName,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26.0,
+                          color: Colors.black87,
                         ),
                       ),
                     ),
-                    Hero(
-                      tag: 'title',
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 2.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Hero(
+                        tag: "cooking_time",
                         child: Material(
                           color: Colors.transparent,
-                          child: Text(
-                            foodList[widget.currentIndex].foodName,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 26.0,
+                          child: FoodAttributes(
+                            text: foodList[widget.currentIndex].cookingTime,
+                            icon: Icons.timer,
+                            color: Colors.black87,
+                            opacity: 1.0,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 8.0),
+                        child: Hero(
+                          tag: "food_type",
+                          child: Material(
+                            color: Colors.transparent,
+                            child: FoodAttributes(
+                              text: foodList[widget.currentIndex].foodType,
+                              icon: Icons.four_k,
                               color: Colors.black87,
+                              opacity: 1.0,
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 2.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Hero(
-                            tag: "cooking_time",
-                            child: Material(
-                              color: Colors.transparent,
-                              child: FoodAttributes(
-                                text: foodList[widget.currentIndex].cookingTime,
-                                icon: Icons.timer,
-                                color: Colors.black87,
-                                opacity: null,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(left: 8.0),
-                            child: Hero(
-                              tag: "food_type",
-                              child: Material(
-                                color: Colors.transparent,
-                                child: FoodAttributes(
-                                  text: foodList[widget.currentIndex].foodType,
-                                  icon: Icons.high_quality,
-                                  color: Colors.black87,
-                                  opacity: null,
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: SlideTransition(
-                        position: offset,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            _buildTabBar(),
-                            Expanded(
-                              child: _buildTabView(),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                Expanded(
+                  child: SlideTransition(
+                    position: offset,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        _buildTabBar(),
+                        Expanded(
+                          child: _buildTabView(),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
           floatingActionButton: Container(
             margin: EdgeInsets.only(bottom: 40.0),
