@@ -1,4 +1,4 @@
-import 'package:cooking_ui_challenge/ui/home_page.dart';
+import 'package:cooking_ui_challenge/ui/homepage.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());

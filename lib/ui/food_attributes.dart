@@ -4,48 +4,37 @@ class FoodAttributes extends StatelessWidget {
   final String text;
   final IconData icon;
   final Color color;
-  final Animation<double> opacity;
+  final double opacity;
 
-  FoodAttributes({this.text, this.icon, this.color, this.opacity});
+  FoodAttributes(
+      {this.text, this.icon, this.color = Colors.black, this.opacity});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 12.0),
+      margin: EdgeInsets.symmetric(vertical: 16.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Icon(
             icon,
             color: Colors.green,
           ),
-          (opacity != null)
-              ? FadeTransition(
-                  opacity: opacity,
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 14.0),
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      text,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: color,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                )
-              : Container(
-                  margin: const EdgeInsets.only(left: 14.0),
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    text,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: color,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500),
-                  ),
-                )
+          Opacity(
+            opacity: opacity,
+            child: Container(
+                margin: EdgeInsets.only(left: 16.0),
+                padding: EdgeInsets.all(5.0),
+                child: Text(
+                  text,
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      color: color,
+                      fontWeight: FontWeight.w600),
+                )),
+          )
         ],
       ),
     );
