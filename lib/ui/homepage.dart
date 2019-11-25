@@ -5,6 +5,7 @@ import 'package:cooking_ui_challenge/custom/radial_drag_gesture_detector.dart';
 import 'package:cooking_ui_challenge/model/food.dart';
 import 'package:cooking_ui_challenge/ui/detail_page.dart';
 import 'package:cooking_ui_challenge/ui/food_attributes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   AnimationController _textColorController;
   Animation<Color> _textColorAnimation;
+  Animation<Color> _textAttributeColorAnimation;
   int currentIndex = 1;
   bool isClockwise = false;
   bool isBgBlack = false;
@@ -64,8 +66,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     _textColorController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 400));
-    _textColorAnimation = ColorTween(begin: Colors.black, end: Colors.white)
-        .animate(_textColorController);
+    _textColorAnimation =
+        ColorTween(begin: Color(0xff131c4f), end: Colors.white)
+            .animate(_textColorController);
+    _textAttributeColorAnimation =
+        ColorTween(begin: Color(0xff878995), end: Color(0xffd4d5d7))
+            .animate(_textColorController);
   }
 
   @override
@@ -87,6 +93,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
+                _buildWhiteBg(),
                 _buildBlackBg(),
                 _buildText(),
                 _buildPlate(),
@@ -129,25 +136,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Widget _buildPlate() {
     return Container(
-      child: Transform.translate(
-        offset: Offset(80.0, -40.0),
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: RadialDragGestureDetector(
-            onRadialDragStart: _onRadialDragStart,
-            onRadialDragUpdate: _onRadialDragUpdate,
-            onRadialDragEnd: _onRadialDragEnd,
-            child: Transform.rotate(
-              angle: rotationValue,
-              child: Hero(
-                tag: 'food',
-                flightShuttleBuilder: _heroBuilder,
-                child: Image.asset(
-                  foodList[currentIndex].foodAssetsPath,
-                  width: 180.0,
-                  height: 250.0,
-                  fit: BoxFit.fitWidth,
-                ),
+      child: Align(
+        alignment: Alignment(4, 0),
+        child: RadialDragGestureDetector(
+          onRadialDragStart: _onRadialDragStart,
+          onRadialDragUpdate: _onRadialDragUpdate,
+          onRadialDragEnd: _onRadialDragEnd,
+          child: Transform.rotate(
+            angle: rotationValue,
+            child: Hero(
+              tag: 'food',
+              flightShuttleBuilder: _heroBuilder,
+              child: Image.asset(
+                foodList[currentIndex].foodAssetsPath,
+                width: 300.0,
+                height: 300.0,
+                fit: BoxFit.fitWidth,
               ),
             ),
           ),
@@ -158,9 +162,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   Widget _buildText() {
     return Positioned(
-      top: 60.0,
+      top: 111.0,
       left: 32.0,
-      right: 80.0,
+      right: 90.0,
       bottom: 0.0,
       child: SingleChildScrollView(
         child: Column(
@@ -170,11 +174,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               "DAILY COOKING QUEST",
               style: TextStyle(
                   color: Colors.grey,
-                  fontSize: 24.0,
+                  fontSize: 12.0,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              height: 12.0,
+              height: 6.0,
             ),
             Opacity(
               opacity: _textOpacityAnimation.value,
@@ -188,8 +192,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       foodList[currentIndex].foodName,
                       style: TextStyle(
                           color: _textColorAnimation.value,
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold),
+                          fontSize: 34.0,
+                          fontFamily: 'QuincyCF',
+                          fontWeight: FontWeight.w900),
                     ),
                   ),
                 ),
@@ -201,17 +206,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             FoodAttributes(
               text: foodList[currentIndex].cookingDifficulty,
               icon: Icons.hot_tub,
-              color: _textColorAnimation.value,
+              color: _textAttributeColorAnimation.value,
               opacity: _textOpacityAnimation.value,
             ),
             Hero(
               tag: 'cooking_time',
               child: Material(
-                color:Colors.transparent,
+                color: Colors.transparent,
                 child: FoodAttributes(
                   text: foodList[currentIndex].cookingTime,
                   icon: Icons.timer,
-                  color: _textColorAnimation.value,
+                  color: _textAttributeColorAnimation.value,
                   opacity: _textOpacityAnimation.value,
                 ),
               ),
@@ -219,17 +224,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             FoodAttributes(
               text: foodList[currentIndex].foodEffect,
               icon: Icons.spa,
-              color: _textColorAnimation.value,
+              color: _textAttributeColorAnimation.value,
               opacity: _textOpacityAnimation.value,
             ),
             Hero(
               tag: 'food_type',
               child: Material(
-                color:Colors.transparent,
+                color: Colors.transparent,
                 child: FoodAttributes(
                   text: foodList[currentIndex].foodType,
                   icon: Icons.four_k,
-                  color: _textColorAnimation.value,
+                  color: _textAttributeColorAnimation.value,
                   opacity: _textOpacityAnimation.value,
                 ),
               ),
@@ -242,9 +247,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               child: Text(
                 foodList[currentIndex].foodDescription,
                 style: TextStyle(
-                  color: _textColorAnimation.value,
+                  color: _textAttributeColorAnimation.value,
                   fontWeight: FontWeight.w600,
-                  fontSize: 16.0,
+                  fontSize: 14.0,
                 ),
               ),
             )
@@ -260,9 +265,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       left: 0.0,
       right: 0.0,
       child: AnimatedContainer(
-          duration: Duration(milliseconds: 400),
-          color: Color(0xFF384450),
-          height: backBgHeight),
+        duration: Duration(milliseconds: 400),
+        height: backBgHeight,
+        child: Image.asset(
+          'assets/Base_black.png',
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWhiteBg() {
+    return Positioned(
+      top: 0.0,
+      left: 0.0,
+      right: 0.0,
+      child: Container(
+        child: Image.asset(
+          'assets/Base.png',
+          fit: BoxFit.fill,
+        ),
+      ),
     );
   }
 
@@ -283,7 +306,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void _onVerticalDragUpdate(DragUpdateDetails details) {
     print(details.delta.dy);
-    isClockwise = details.delta.dy<0;
+    isClockwise = details.delta.dy < 0;
   }
 
   void _onVerticalDragEnd(DragEndDetails details) {

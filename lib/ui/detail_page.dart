@@ -36,6 +36,7 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'SFUIText'),
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -52,11 +53,12 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                     child: Image.asset(
                       foodList[widget.currentIndex].foodAssetsPath,
                       fit: BoxFit.scaleDown,
-                      width: 180.0,
-                      height: 250.0,
+                      width: 300.0,
+                      height: 300.0,
                     ),
                   ),
                 ),
+                SizedBox(height: 24),
                 Hero(
                   tag: 'title',
                   child: SizedBox(
@@ -66,9 +68,10 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                       child: Text(
                         foodList[widget.currentIndex].foodName,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 26.0,
-                          color: Colors.black87,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 34.0,
+                          fontFamily: 'QuincyCF',
+                          color: Color(0xff131c4f),
                         ),
                       ),
                     ),
@@ -78,16 +81,19 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                   margin: const EdgeInsets.only(top: 2.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Hero(
                         tag: "cooking_time",
                         child: Material(
                           color: Colors.transparent,
-                          child: FoodAttributes(
-                            text: foodList[widget.currentIndex].cookingTime,
-                            icon: Icons.timer,
-                            color: Colors.black87,
-                            opacity: 1.0,
+                          child: FittedBox(
+                            child: FoodAttributes(
+                              text: foodList[widget.currentIndex].cookingTime,
+                              icon: Icons.timer,
+                              color: Color(0xff878995),
+                              opacity: 1.0,
+                            ),
                           ),
                         ),
                       ),
@@ -100,7 +106,7 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                             child: FoodAttributes(
                               text: foodList[widget.currentIndex].foodType,
                               icon: Icons.four_k,
-                              color: Colors.black87,
+                              color: Color(0xff878995),
                               opacity: 1.0,
                             ),
                           ),
@@ -149,9 +155,10 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
 
   _buildTabBar() {
     return TabBar(
-        indicatorColor: Colors.green,
-        labelColor: Colors.black87,
-        unselectedLabelColor: Colors.grey.withOpacity(0.7),
+        indicatorColor: Color(0xff17c37b),
+        indicatorSize: TabBarIndicatorSize.label,
+        labelColor: Color(0xff656b8b),
+        unselectedLabelColor: Color(0xffc0c1c7),
         isScrollable: true,
         labelStyle: TextStyle(letterSpacing: 0.5, fontWeight: FontWeight.bold),
         tabs: [
@@ -179,7 +186,7 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
             margin: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
               "${index + 1}. ${ingredientList[index]}",
-              style: TextStyle(fontSize: 16.0, color: Colors.black87),
+              style: TextStyle(fontSize: 14.0, color: Color(0xff656b8b)),
             ),
           );
         });
@@ -194,7 +201,7 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
             margin: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
               "${index + 1}. ${methodList[index]}",
-              style: TextStyle(fontSize: 16.0, color: Colors.black87),
+              style: TextStyle(fontSize: 14.0, color: Color(0xff656b8b)),
             ),
           );
         });

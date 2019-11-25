@@ -12,7 +12,7 @@ class FoodAttributes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 16.0),
+      margin: EdgeInsets.symmetric(vertical: 12.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -32,7 +32,7 @@ class FoodAttributes extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 16.0,
                       color: color,
-                      fontWeight: FontWeight.w600),
+                      fontWeight: FontWeight.bold),
                 )),
           )
         ],
